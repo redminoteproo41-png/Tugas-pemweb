@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 5 - Rantai Metode jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            text-align: center;
+            background-color: #fdfcfd;
+        }
+        #notification {
+            width: 300px;
+            padding: 20px;
+            margin: 20px auto;
+            color: white;
+            font-weight: bold;
+            background-color: #2b37c1;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            /* Sembunyikan di awal */
+            display: none;
+            opacity: 0;
+            font-size: 1.2em;
+        }
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ff4d94; /* Warna pink manis */
+            color: white;
+            border: none;
+            border-radius: 25px;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 77, 148, 0.3);
+        }
+        button:hover {
+            background-color: #d931b2;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Notifikasi Animasi Chaining</h2>
+    <button id="show-btn">Klik untuk Pesan</button>
+
+    <div id="notification">
+        <span id="msg-text">Apa Kabar?</span>
+    </div>
+
+    
+
+    <script>
+        $(document).ready(function(){
+            $("#show-btn").click(function(){
+                let notif = $("#notification");
+                let text = $("#msg-text");
+
+                // Hentikan animasi sebelumnya agar tidak bertumpuk
+                notif.stop(true, true);
+                
+                // --- TEKNIK CHAINING ---
+                notif
+                    .css({ "background-color": "#8e44ad", "width": "300px" }) // Setel awal
+                    .slideDown(600)                     // 1. Muncul meluncur
+                    .animate({ opacity: 1 }, 400)       // 2. Memperjelas
+                    .delay(1000)                        // 3. Tahan sejenak "Apa Kabar?"
+                    .animate({ opacity: 0 }, 300, function() {
+                        text.text("I really miss you"); // 4. GANTI TEKS di tengah animasi
+                    })
+                    .animate({ opacity: 1, width: "350px" }, 500) // 5. Munculkan teks baru dengan melebar
+                    .animate({ width: "300px" }, 300)   // 6. Efek membal (bounce)
+                    .delay(2000)                        // 7. Tahan pesan utama
+                    .fadeOut(800)                       // 8. Menghilang halus
+                    .slideUp(400);                      // 9. Kembali menutup
+                
+                // Animasi Judul
+                $("h2").fadeOut(300).fadeIn(300);
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biodata Dinamis DOM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .biodata-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        #fotoProfil {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        .info {
+            flex-grow: 1;
+        }
+        .info p {
+            margin: 5px 0;
+        }
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* --- PERUBAHAN WARNA TOMBOL --- */
+        button {
+            padding: 10px 15px;
+            color: white;
+            border: none;
+            border-radius: 12px; /* Lebih bulat agar terlihat lucu */
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        /* Memberikan warna berbeda untuk setiap fungsi tombol */
+        button:nth-child(1) { background-color: #ff85a2; } /* Pink - Ubah Nama */
+        button:nth-child(2) { background-color: #ba68c8; } /* Ungu - Ubah Prodi */
+        button:nth-child(3) { background-color: #4fc3f7; } /* Biru - Ganti Foto */
+        button:nth-child(4) { background-color: #ffb74d; } /* Oranye - Sembunyikan */
+        button:nth-child(5) { background-color: #4db6ac; } /* Hijau Toska - Tampilkan */
+
+        button:hover {
+            opacity: 0.8;
+            transform: translateY(-2px); /* Efek melayang sedikit */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Biodata Mahasiswa</h1>
+        
+        <div id="biodataCard" class="biodata-card">
+            <img id="fotoProfil" src="potokk1.jpg">
+            <div class="info">
+                <p>Nama: <strong id="namaMhs">Nama Default</strong></p>
+                <p>NIM: <strong id="nimMhs">NIM Default</strong></p>
+                <p>Program Studi: <strong id="prodiMhs">Program Studi Default</strong></p>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button onclick="ubahNama()">Ubah Nama</button>
+            <button onclick="ubahProdi()">Ubah Program Studi</button>
+            <button onclick="gantiFoto()">Ganti Foto</button>
+            <button onclick="sembunyikanBiodata()">Sembunyikan Biodata</button>
+            <button onclick="tampilkanBiodata()">Tampilkan Biodata</button>
+        </div>
+    </div>
+
+    
+
+    <script>
+        let currentName = "Tiara Ersya Aulia";
+        let currentProdi = "SISTEM INFORMASI"; 
+        const defaultPhotoUrl = "potokk1.jpg";
+        const newPhotoUrl = "potokkk3.jpg";
+        let isDefaultPhoto = true;
+
+        function ubahNama() {
+            currentName = prompt("Masukkan nama baru:", currentName);
+            if (currentName) {
+                document.getElementById('namaMhs').innerHTML = currentName;
+            }
+        }
+
+        function ubahProdi() {
+            currentProdi = prompt("Masukkan program studi baru:", currentProdi);
+            if (currentProdi) {
+                document.getElementById('prodiMhs').innerHTML = currentProdi;
+            }
+        }
+
+        function gantiFoto() {
+            const fotoElement = document.getElementById('fotoProfil');
+            if (isDefaultPhoto) {
+                fotoElement.setAttribute('src', newPhotoUrl);
+                isDefaultPhoto = false;
+            } else {
+                fotoElement.setAttribute('src', defaultPhotoUrl);
+                isDefaultPhoto = true;
+            }
+        }
+
+        function sembunyikanBiodata() {
+            document.getElementById('biodataCard').style.display = 'none';
+        }
+
+        function tampilkanBiodata() {
+            document.getElementById('biodataCard').style.display = 'flex';
+        }
+
+        window.onload = function() {
+            document.getElementById('namaMhs').innerHTML = currentName;
+            document.getElementById('nimMhs').innerHTML = "0110125129";
+            document.getElementById('prodiMhs').innerHTML = currentProdi;
+            document.getElementById('fotoProfil').setAttribute('src', defaultPhotoUrl);
+        };
+    </script>
+
+</body>
+</html>
